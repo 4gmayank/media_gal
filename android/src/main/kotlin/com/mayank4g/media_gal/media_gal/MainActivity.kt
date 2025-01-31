@@ -37,7 +37,7 @@ class MainActivity : FlutterActivity() {
                         val projection = arrayOf(MediaStore.Images.Media.DATA)
                         val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                         val cursor: Cursor? = contentResolver.query(uri, projection, null, null, null)
-
+       // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         cursor?.use {
                             val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
                             while (it.moveToNext()) {
