@@ -166,6 +166,12 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 This package is licensed under the [MIT License](LICENSE).
 
 ---
+# Media Gal
+
+**DEPRECATION NOTICE:**
+
+Version 1.0.0 of this package is deprecated. Please upgrade to version 1.0.1 or later for continued support and bug fixes.
+
 
 ### Final Notes:
 - The exact method to fetch images from the gallery may vary depending on the package you're using or your custom implementation. Be sure to replace placeholder methods like `MediaGallery.getImagesFromGallery()` with the actual method from your package.
