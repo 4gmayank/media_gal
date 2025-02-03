@@ -1,7 +1,11 @@
 name: media_gal
-description: "A new Flutter plugin project."
-version: 0.0.1
-homepage:
+description: "Media from Mobile App Gallery Android/IOS"
+version: 0.0.2 # Updated Version MAJOR.MINOR.PATCH
+homepage: https://github.com/4gmayank/media_gal
+authors: 
+  - Mayank Goyal <mayankgoyal.mait@gmail.com>
+maintainers:
+  - Mayank Goyal <mayankgoyal.mait@gmail.com>
 
 environment:
   sdk: ^3.6.0
