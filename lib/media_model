@@ -10,7 +10,7 @@ class MediaModel {
   String? preview;
   bool isImage = false;
   bool isSelected = false;
-
+11
   MediaModel.filePath(this._filePath):_file =File(_filePath) {
     this.isImage = true;
   }
