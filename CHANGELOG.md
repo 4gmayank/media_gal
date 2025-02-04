@@ -1,5 +1,5 @@
-## 0.0.2 - 2025-02-03
+## 0.0.4 - 2025-02-03
 
-* TODO: Describe initial release.
-Added Maintainer and Author
-Media Gallery Package in Development
+Added Compatibility with Android, MediaModel and Basic Functions introduces
+Packages updated. 
+Permission Handler added.

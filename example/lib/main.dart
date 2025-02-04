@@ -3,59 +3,94 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:media_gal/media_gal.dart';
+import 'package:flutter/material.dart';
+import 'package:media_gal/media_gal.dart';
+import 'package:media_gal/media_model';  // Replace with actual import
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Media Gallery Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MediaGalScreen(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _mediaGalPlugin = MediaGal();
+class MediaGalScreen extends StatefulWidget {
+  @override
+  State<MediaGalScreen> createState() => _MediaGalScreenState();
+}
+
+class _MediaGalScreenState extends State<MediaGalScreen> {
+  List<MediaModel> _mediaFiles = List.empty(growable: true);
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    _loadImages();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
+  Future<void> _loadImages() async {
     try {
-      platformVersion =
-          await _mediaGalPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      // Assuming getImagesFromGallery is a method in the package
+      List<Object?>? images = await MediaGal.loadMediaList();
+      for (var mediaPathNam in images??[]) {
+        if (mediaPathNam is String?) {
+          if (mediaPathNam != null && mediaPathNam.isNotEmpty) {
+            this._mediaFiles.add(MediaModel.filePath(mediaPathNam));
+          }
+        }
+      }
+      setState(() {
+
+      });
+    } catch (e) {
+      print("Error fetching images: $e");
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+    return Scaffold(
+      appBar: AppBar(title: Text("Media Gallery")),
+      body: _mediaFiles.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : Expanded(
+        child: _mediaList(_mediaFiles),
+      ),
+    );
+  }
+
+  Widget _mediaList(List<MediaModel> mediaList) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: mediaList.length, // Number of items in the list
+      itemBuilder: (context, index) {
+        return _mediaViewCard(mediaList[index]);
+      },
+    );
+  }
+
+
+
+  Widget _mediaViewCard(MediaModel media) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2),
+      child: ConstrainedBox(constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width,),
+        child: Container(
+          child: Card(
+            elevation: 4.0,
+            child: media.image(),
+          ),
         ),
       ),
     );

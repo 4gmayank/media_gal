@@ -78,18 +78,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MediaGalleryScreen(),
+      home: MediaGalScreen(),
     );
   }
 }
 
-class MediaGalleryScreen extends StatefulWidget {
+class MediaGalScreen extends StatefulWidget {
   @override
-  _MediaGalleryScreenState createState() => _MediaGalleryScreenState();
+  _MediaGalState createState() => _MediaGalScreenState();
 }
 
-class _MediaGalleryScreenState extends State<MediaGalleryScreen> {
-  List<String> _imagePaths = [];
+class _MediaGalScreenState extends State<MediaGalScreen> {
+  List<MediaModel> _mediaFiles = List.empty(growable: true);
 
   @override
   void initState() {
@@ -100,8 +100,14 @@ class _MediaGalleryScreenState extends State<MediaGalleryScreen> {
   Future<void> _loadImages() async {
     try {
       // Assuming getImagesFromGallery is a method in the package
-      List<String> images = await MediaGallery.getImagesFromGallery();
-      
+      List<Object?>? images = await MediaGal.loadMediaList();
+      for (var mediaPathNam in path1??[]) {
+        if (mediaPathNam is String?) {
+          if (mediaPathNam != null && mediaPathNam.isNotEmpty) {
+            this._mediaFiles.add(MediaModel.filePath(mediaPathNam));
+          }
+        }
+      }
       setState(() {
         _imagePaths = images;
       });
@@ -116,12 +122,37 @@ class _MediaGalleryScreenState extends State<MediaGalleryScreen> {
       appBar: AppBar(title: Text("Media Gallery")),
       body: _imagePaths.isEmpty
           ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: _imagePaths.length,
-              itemBuilder: (context, index) {
-                return Image.asset(_imagePaths[index]);  // Update this based on your implementation
-              },
-            ),
+          : Expanded(
+        child: _mediaList(_mediaFiles),
+      ),
+    );
+  }
+
+  Widget _mediaList(List<MediaModel> mediaList) {
+    return ListView.builder(
+      controller: _scrollController,
+      scrollDirection: Axis.horizontal,
+      itemCount: mediaList.length, // Number of items in the list
+      itemBuilder: (context, index) {
+        return _imagePreview(mediaList[index]);
+      },
+    );
+  }
+
+
+
+  Widget _mediaViewCard(MediaModel media) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2.0, vertical: 2),
+      child: ConstrainedBox(constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width,),
+        child: Container(
+          child: Card(
+            elevation: 4.0,
+            child: media.image(),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -131,7 +162,7 @@ class _MediaGalleryScreenState extends State<MediaGalleryScreen> {
 - **Toast Notifications**: You can show a toast message when the app successfully fetches media or when there is an error.
   
   ```dart
-  Fluttertoast.showToast(msg: "Permissions granted!");  // Example usage
+  MediaGal.showToast(msg: "Permissions granted!");  // Example usage
   ```
 
 - **Permission Handling**: If the user denies access to the gallery, your app will prompt them again to allow permissions, or show a suitable message using **Toast**.
@@ -139,15 +170,13 @@ class _MediaGalleryScreenState extends State<MediaGalleryScreen> {
 ### Example of Using Toast:
 
 ```dart
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:media_gal/media_gal.dart';
 
 // Show a toast message
-Fluttertoast.showToast(
-  msg: "This is a simple toast message",
-  toastLength: Toast.LENGTH_SHORT,
-  gravity: ToastGravity.BOTTOM,
-  timeInSecForIosWeb: 1,
-);
+MediaGal.showToast(msg: "This is a simple toast message");
+
+// Fetch Media List
+List<Object?>? path1 = await MediaGal.loadMediaList();
 ```
 
 ## Contributions
@@ -163,14 +192,14 @@ Contributions are welcome! If you'd like to contribute, please fork the reposito
 
 ## License
 
-This package is licensed under the [MIT License](LICENSE).
+This package is licensed under the [Apache License](LICENSE).
 
 ---
 # Media Gal
 
 **DEPRECATION NOTICE:**
 
-Version 1.0.0 of this package is deprecated. Please upgrade to version 1.0.1 or later for continued support and bug fixes.
+Version 0.0.3 of this package is deprecated. Please upgrade to version 0.0.4 or later for continued support and bug fixes.
 
 
 ### Final Notes:
