@@ -16,23 +16,21 @@ class MediaGal {
     await MediaFile.showToast(message);
   }
 
-  static Future<List<Object?>?> loadMediaList() async {
+  static Future<List<MediaDetails?>?> loadMediaList() async {
     return await MediaFile.loadMediaList();
   }
 
-    Future<void> _loadAssets() async {
-    // Request permissions for photos
-    await Permission.photos.request();
-    List<Object?>? path1 = await MediaGal.loadMediaList();
-    // List<Object?> path1 = await Config.loadMediaList();
-
-
-    for (var mediaPathNam in path1??[]) {
-      if (mediaPathNam is String?) {
-        if (mediaPathNam != null && mediaPathNam.isNotEmpty) {
-          _mediaFiles.add(MediaModel.filePath(mediaPathNam));
-        }
-      }
-    }
-  }
+  //   Future<void> _loadAssets() async {
+  //   // Request permissions for photos
+  //   //   PermissionHndl.galleryPermission();
+  //   List<MediaDetails?>? path1 = await MediaGal.loadMediaList();
+  //
+  //
+  //   for (MediaDetails? mediaPathNam in path1 ?? []) {
+  //     if (mediaPathNam != null && (mediaPathNam?.path??'').isNotEmpty) {
+  //       // this._mediaFiles.add(MediaFileAttachmentModel.filePath(mediaPathNam.path));
+  //     }
+  //
+  //   }
+  // }
 }

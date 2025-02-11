@@ -2,8 +2,6 @@ name: media_gal
 description: "Fetch Image Media from Mobile App Gallery Android/IOS, comprises of png, jpg. This plugin comes with Sdk 32 and above support"
 version: 0.0.5 # Updated Version MAJOR.MINOR.PATCH
 homepage: https://github.com/4gmayank/media_gal
-authors: 
-  - Mayank Goyal <mayankgoyal.mait@gmail.com>
 maintainers:
   - Mayank Goyal <mayankgoyal.mait@gmail.com>
 
@@ -25,6 +23,7 @@ dependencies:
   plugin_platform_interface: ^2.0.2
   permission_handler: ^11.3.1
   path_provider: ^2.1.5
+  device_info_plus: ^11.3.0
 
 dev_dependencies:
   flutter_test:
