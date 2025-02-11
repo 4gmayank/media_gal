@@ -1,17 +1,9 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-
-import 'package:permission_handler/permission_handler.dart';
 
 class PermissionHndl {
   final iOSLocalizedLabels = false;
-
-
-
 
   static Future<bool> galleryPermission() async {
     TargetPlatform defaultTargetPlatform = TargetPlatform.android;
@@ -20,8 +12,7 @@ class PermissionHndl {
     AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
     int sdk = androidInfo.version.sdkInt;
     Permission permsi = sdk >= 33 ? Permission.photos : Permission.storage;
-    PermissionStatus status =
-    await (permsi).request();
+    PermissionStatus status = await (permsi).request();
     if (status == PermissionStatus.denied) {
       PermissionStatus permissionStatus = await permsi.request();
       SnackBar(content: Text('Contact data not available on device'));
