@@ -1,12 +1,12 @@
 import 'package:media_gal/media_file.dart';
-import 'package:media_gal/media_model';
+import 'package:media_gal/media_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'media_gal_platform_interface.dart';
 
 class MediaGal {
 
-    List<MediaModel> _mediaFiles = List.empty(growable: true);
+    // List<MediaModel> _mediaFiles = List.empty(growable: true);
 
   Future<String?> getPlatformVersion() {
     return MediaGalPlatform.instance.getPlatformVersion();

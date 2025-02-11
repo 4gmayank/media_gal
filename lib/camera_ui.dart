@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_gal/media_model';
+import 'package:media_gal/media_model.dart';
 
 class CameraUi extends StatelessWidget {
   const CameraUi({super.key});

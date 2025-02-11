@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:media_gal/media_gal.dart';
 import 'package:flutter/material.dart';
 import 'package:media_gal/media_gal.dart';
-import 'package:media_gal/media_model';  // Replace with actual import
+import 'package:media_gal/media_model.dart';  // Replace with actual import
 
 void main() {
   runApp(MyApp());
