@@ -17,7 +17,7 @@ class CameraUi extends StatelessWidget {
           return    Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: _pickImageFile,
+              onPressed: (){},//_pickImageFile(),
               child: Icon(Icons.camera_alt_rounded),
             ),
           );
@@ -27,7 +27,7 @@ class CameraUi extends StatelessWidget {
           child: _imagePreview(cameraClickList[ cameraClickList.length-index-1], index),
         );
       },
-    ),
+    );
   }
 
   Widget _imagePreview(MediaModel imageFile, int index) {
