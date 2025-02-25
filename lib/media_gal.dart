@@ -1,7 +1,4 @@
 import 'package:media_gal/media_file.dart';
-import 'package:media_gal/media_model.dart';
-import 'package:permission_handler/permission_handler.dart';
-
 import 'media_gal_platform_interface.dart';
 
 class MediaGal {
